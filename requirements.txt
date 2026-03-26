@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+python-dotenv
+pydantic[email]
+langchain-core
+langchain-groq
+langgraph
+tavily-python
+feedparser
+requests
+beautifulsoup4
+jinja2
+resend
+apscheduler
