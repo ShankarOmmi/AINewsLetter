@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<body style="font-family: Arial; max-width: 600px; margin: auto;">
+
+    <h2>{{ subject }}</h2>
+
+    <p>{{ intro }}</p>
+
+    <hr>
+
+    {% for section in sections %}
+        {% if loop.first or section.category != sections[loop.index0 - 1].category %}
+            <h2 style="margin-top: 30px;">{{ section.category }}</h2>
+            <hr>
+        {% endif %}
+
+        <h4>{{ section.title }}</h4>
+        <p>{{ section.summary }}</p>
+        <br>
+    {% endfor %}
+
+    <hr>
+
+    <p>{{ closing }}</p>
+
+    <br><br>
+
+    <p style="font-size: 12px; color: gray;">
+        If you want to unsubscribe, click below:
+        <br>
+        <a href="{{ unsubscribe_url }}">Unsubscribe</a>
+    </p>
+
+</body>
+</html>
