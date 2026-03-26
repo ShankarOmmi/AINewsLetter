@@ -11,7 +11,7 @@ newsletter-agent/
 │
 ├── chains/
 │   ├── summariser.py        ← LangChain chain: raw text → summary
-│   ├── formatter.py         ← LangChain chain: summaries → newsletter draft
+│   ├── formatter.py         ← LangChain chain: summaries newsletter draft
 │   └── quality_check.py    ← LangChain chain: self-critique + rewrite
 │
 ├── db/
