@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AINewsLetter</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 350px;
+            text-align: center;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: black;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #message {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>AINewsLetter</h2>
+        <p>Get weekly AI updates in your inbox 🚀</p>
+
+        <input type="email" id="email" placeholder="Enter your email" />
+        <br>
+        <button onclick="subscribe()">Subscribe</button>
+
+        <div id="message"></div>
+    </div>
+
+    <script>
+        async function subscribe() {
+            const email = document.getElementById("email").value;
+            const messageDiv = document.getElementById("message");
+
+            if (!email) {
+                messageDiv.innerText = "Please enter an email";
+                return;
+            }
+
+            try {
+                const response = await fetch("http://127.0.0.1:8000/subscribe", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ email: email })
+                });
+
+                const data = await response.json();
+                messageDiv.innerText = data.message;
+
+            } catch (error) {
+                messageDiv.innerText = "Something went wrong";
+            }
+        }
+    </script>
+</body>
+</html>
