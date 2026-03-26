@@ -1,3 +1,4 @@
+```
 newsletter-agent/
 ├── main.py                  ← entry point, scheduler lives here
 ├── config.py                ← all API keys loaded from .env
@@ -28,3 +29,4 @@ newsletter-agent/
 │   └── signup.html          ← the public signup page
 │
 └── requirements.txt
+```
