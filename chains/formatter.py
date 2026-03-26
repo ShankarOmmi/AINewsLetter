@@ -95,7 +95,7 @@ def normalize_newsletter(data):
 def format_newsletter(summaries):
     chain = prompt | llm
 
-    for attempt in range(2):  # retry once
+    for attempt in range(10):  # retry once
         response = chain.invoke({
             "summaries": summaries
         })
