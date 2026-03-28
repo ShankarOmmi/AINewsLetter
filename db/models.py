@@ -74,3 +74,22 @@ def log_send(edition_number, subject, total_recipients, status):
 
     conn.commit()
     conn.close()
+
+
+
+def get_active_subscribers():
+    from db.database import get_connection
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT email, unsubscribe_token
+        FROM subscribers
+        WHERE status = 'active'
+    """)
+
+    rows = cursor.fetchall()
+    conn.close()
+
+    return rows

@@ -35,5 +35,16 @@ def create_tables():
     )
     """)
 
+    #editions table
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS editions (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        subject TEXT,
+        content TEXT,
+        status TEXT DEFAULT 'pending',
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+    """)
+
     conn.commit()
     conn.close()
