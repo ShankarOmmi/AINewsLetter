@@ -26,7 +26,7 @@ def get_subscriber_by_email(email:str):
     conn = get_connection()
     cursor = conn.cursor()
 
-    cursor.execute("SELECT * FROM subscribers WHERE email - ?", (email,))
+    cursor.execute("SELECT * FROM subscribers WHERE email = ?", (email,))
     row = cursor.fetchone()
     conn.close()
 
@@ -49,19 +49,7 @@ def unsubscribe(token:str):
 
     return affected>0
 
-def get_active_subscribers():
-    conn = get_connection()
-    cursor = conn.cursor()
-    
-    cursor = conn.execute("""
-    SELECT * FROM subscribers 
-    WHERE status = 'active'
-    """)
 
-    rows = cursor.fetchall()
-    conn.close()
-
-    return [dict(row) for row in rows]
 
 # -------------------------------
 # SEND TRACKING

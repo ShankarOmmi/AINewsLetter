@@ -79,7 +79,6 @@ def summarise_node(state):
                     print(f"✅ Verified (attempt {attempt+1})")
                     break
                 else:
-                    print(f"✅ Verified (attempt {attempt+1})")
                     print(f"⚠️ Hallucination detected. Retrying: {title}")
 
             summaries.append({
@@ -158,9 +157,21 @@ def narrative_node(state):
 
     narrative = generate_narrative(summaries)
 
+    newsletter_draft = state.get("newsletter_draft")
+    if newsletter_draft is not None:
+        newsletter_draft = {
+            **newsletter_draft,
+            "intro": narrative
+        }
+    else:
+        newsletter_draft = {
+            "intro": narrative
+        }
+
     return {
         **state,
-        "intro": narrative  # 🔥 important
+        "intro": narrative,  # 🔥 important
+        "newsletter_draft": newsletter_draft
     }
 
 def relevance_node(state):
