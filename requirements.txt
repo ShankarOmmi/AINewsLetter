@@ -1,5 +1,6 @@
 fastapi
-uvicorn
+uvicorn[standard]
+gunicorn
 python-dotenv
 pydantic[email]
 langchain-core
@@ -12,3 +13,4 @@ beautifulsoup4
 jinja2
 resend
 apscheduler
+psycopg2-binary

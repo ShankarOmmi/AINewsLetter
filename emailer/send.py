@@ -1,5 +1,5 @@
 import resend
-from config import RESEND_API_KEY
+from config import RESEND_API_KEY, EMAIL_FROM
 from utils.logger import logger
 
 resend.api_key = RESEND_API_KEY
@@ -8,7 +8,7 @@ resend.api_key = RESEND_API_KEY
 def send_email(to_email, subject, html_content):
     try:
         response = resend.Emails.send({
-            "from": "onboarding@resend.dev",  # use this for testing
+            "from": EMAIL_FROM,
             "to": [to_email],
             "subject": subject,
             "html": html_content,

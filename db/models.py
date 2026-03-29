@@ -1,19 +1,20 @@
 import uuid 
-from db.database import get_connection
+from db.database import get_connection, IS_POSTGRES
 
 def add_subscriber(email:str):
     conn = get_connection()
     cursor = conn.cursor()
 
     token = str(uuid.uuid4())
-
+    
+    placeholder = "%s" if IS_POSTGRES else "?"
     try:
-        cursor.execute("""
+        cursor.execute(f"""
         INSERT INTO subscribers (email, unsubscribe_token)
-        VALUES (?,?)
+        VALUES ({placeholder},{placeholder})
         """, (email, token))
 
-        conn.commit ()
+        conn.commit()
         return {"success": True, "token" : token}
         
     except Exception as e:
@@ -25,8 +26,9 @@ def add_subscriber(email:str):
 def get_subscriber_by_email(email:str):
     conn = get_connection()
     cursor = conn.cursor()
-
-    cursor.execute("SELECT * FROM subscribers WHERE email = ?", (email,))
+    
+    placeholder = "%s" if IS_POSTGRES else "?"
+    cursor.execute(f"SELECT * FROM subscribers WHERE email = {placeholder}", (email,))
     row = cursor.fetchone()
     conn.close()
 
@@ -36,11 +38,12 @@ def get_subscriber_by_email(email:str):
 def unsubscribe(token:str):
     conn = get_connection()
     cursor = conn.cursor()
-
-    cursor.execute("""
+    
+    placeholder = "%s" if IS_POSTGRES else "?"
+    cursor.execute(f"""
     UPDATE subscribers
     SET status = 'unsubscribed'
-    WHERE unsubscribe_token = ?
+    WHERE unsubscribe_token = {placeholder}
     """, (token,))
 
     conn.commit()
@@ -57,10 +60,11 @@ def unsubscribe(token:str):
 def log_send(edition_id, subject, total, status):
     conn = get_connection()
     cursor = conn.cursor()
-
-    cursor.execute("""
+    
+    placeholder = "%s" if IS_POSTGRES else "?"
+    cursor.execute(f"""
         INSERT INTO sends (edition_number, subject, total_recipients, status)
-        VALUES (?, ?, ?, ?)
+        VALUES ({placeholder}, {placeholder}, {placeholder}, {placeholder})
     """, (
         edition_id,
         subject,

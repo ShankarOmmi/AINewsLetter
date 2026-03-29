@@ -1,8 +1,9 @@
 from fastapi import APIRouter, HTTPException
 from api.schemas import SubscribeRequest
 from db.models import add_subscriber, unsubscribe, log_send
-from db.database import get_connection
+from db.database import get_connection, IS_POSTGRES
 from emailer.send import send_email
+from config import BASE_URL, APPROVAL_EMAIL
 
 from jinja2 import Environment, FileSystemLoader
 from utils.logger import logger
@@ -11,9 +12,6 @@ import json
 import time
 
 router = APIRouter()
-
-# CONFIG (change later for Railway)
-BASE_URL = "http://localhost:8000"
 
 
 # -------------------------------
@@ -62,7 +60,8 @@ def approve_newsletter(id: int):
         # -------------------------------
         # FETCH EDITION
         # -------------------------------
-        cursor.execute("SELECT content, status FROM editions WHERE id=?", (id,))
+        placeholder = "%s" if IS_POSTGRES else "?"
+        cursor.execute(f"SELECT content, status FROM editions WHERE id={placeholder}", (id,))
         row = cursor.fetchone()
 
         if not row:
@@ -86,7 +85,8 @@ def approve_newsletter(id: int):
 
         # -------------------------------
         # MARK APPROVED
-        # -------------------------------
+        placeholder = "%s" if IS_POSTGRES else "?"
+        cursor.execute(f"UPDATE editions SET status='approved' WHERE id={placeholder}
         cursor.execute("UPDATE editions SET status='approved' WHERE id=?", (id,))
         conn.commit()
 
@@ -178,7 +178,8 @@ def approve_newsletter(id: int):
 def reject_newsletter(id: int):
     conn = get_connection()
     cursor = conn.cursor()
-
+placeholder = "%s" if IS_POSTGRES else "?"
+    cursor.execute(f"UPDATE editions SET status='rejected' WHERE id={placeholder}
     cursor.execute("UPDATE editions SET status='rejected' WHERE id=?", (id,))
     conn.commit()
     conn.close()

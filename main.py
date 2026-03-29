@@ -2,8 +2,9 @@ from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from contextlib import asynccontextmanager
 
-from db.database import create_tables, get_connection
+from db.database import create_tables, get_connection, IS_POSTGRES
 from api.router import router
+from config import BASE_URL, APPROVAL_EMAIL
 
 from agents.collector import build_collector_graph
 from agents.processor import build_processor_graph
@@ -56,17 +57,29 @@ def save_edition(newsletter):
     conn = get_connection()
     cursor = conn.cursor()
 
-    cursor.execute("""
-        INSERT INTO editions (subject, content, status)
-        VALUES (?, ?, ?)
-    """, (
-        newsletter["subject"],
-        json.dumps(newsletter),
-        "pending"
-    ))
+    if IS_POSTGRES:
+        cursor.execute("""
+            INSERT INTO editions (subject, content, status)
+            VALUES (%s, %s, %s)
+            RETURNING id
+        """, (
+            newsletter["subject"],
+            json.dumps(newsletter),
+            "pending"
+        ))
+        edition_id = cursor.fetchone()[0]
+    else:
+        cursor.execute("""
+            INSERT INTO editions (subject, content, status)
+            VALUES (?, ?, ?)
+        """, (
+            newsletter["subject"],
+            json.dumps(newsletter),
+            "pending"
+        ))
+        edition_id = cursor.lastrowid
 
     conn.commit()
-    edition_id = cursor.lastrowid
     conn.close()
 
     return edition_id
@@ -76,9 +89,9 @@ def save_edition(newsletter):
 # 3. SEND APPROVAL EMAIL (NEW)
 # -------------------------------
 def send_approval_email(newsletter, edition_id):
-    # ✅ Use localhost directly (no BASE_URL)
-    approve_link = f"http://localhost:8000/approve?id={edition_id}"
-    reject_link = f"http://localhost:8000/reject?id={edition_id}"
+    # Use BASE_URL from config for production compatibility
+    approve_link = f"{BASE_URL}/approve?id={edition_id}"
+    reject_link = f"{BASE_URL}/reject?id={edition_id}"
 
     # Full newsletter HTML
     html = render_email(newsletter, edition_number=edition_id)
@@ -103,7 +116,7 @@ def send_approval_email(newsletter, edition_id):
     final_html = approval_section + html
 
     send_email(
-        to_email="n200179@rguktn.ac.in",
+        to_email=APPROVAL_EMAIL,
         subject=f"Approval Required - Edition #{edition_id}",
         html_content=final_html
     )
@@ -204,7 +217,7 @@ async def lifespan(app: FastAPI):
     scheduler.add_job(run_newsletter_job, "cron", day_of_week="mon", hour=8, minute=0)
 
     # TEST MODE (comment later)
-    scheduler.add_job(run_newsletter_job, "interval", minutes=2)
+    # scheduler.add_job(run_newsletter_job, "interval", minutes=2)
 
     scheduler.start()
     logger.info("Scheduler started")

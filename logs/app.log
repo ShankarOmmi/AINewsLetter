@@ -315,3 +315,34 @@ Running manual test...
 2026-03-29 23:37:21,654 | INFO | Preview saved
 2026-03-29 23:37:23,124 | INFO | Email sent to n200179@rguktn.ac.in
 2026-03-29 23:37:23,124 | INFO | Approval email sent
+2026-03-30 00:35:58,524 | INFO | 
+Running manual test...
+
+2026-03-30 00:35:58,525 | INFO | Running newsletter job...
+2026-03-30 00:36:07,209 | INFO | Collected articles: 6
+2026-03-30 00:39:27,463 | INFO | Sentiment distribution:
+2026-03-30 00:39:27,463 | INFO | [Positive.] Tech Breakthroughs in 2026: AI Innovations, Space Exploration, and ...
+2026-03-30 00:39:27,464 | INFO | [Neutral] Five Trends in AI and Data Science for 2026
+2026-03-30 00:39:27,464 | INFO | [Neutral] Stanford study outlines dangers of asking AI chatbots for personal advice
+2026-03-30 00:39:27,464 | INFO | [Positive] Anthropic’s Claude popularity with paying consumers is skyrocketing
+2026-03-30 00:39:27,465 | INFO | [Neutral] The trends that will shape AI and tech in 2026 - IBM
+2026-03-30 00:39:27,465 | INFO | [Neutral] What's next in AI: 7 trends to watch in 2026 - Microsoft Source
+2026-03-30 00:39:27,465 | INFO | Newsletter generated
+2026-03-30 00:39:27,473 | INFO | Saved edition 26
+2026-03-30 00:39:27,498 | INFO | Preview saved
+2026-03-30 00:39:28,985 | ERROR | Email failed for n200179@rguktn.ac.in: The shankar.in domain is not verified. Please, add and verify your domain on https://resend.com/domains
+2026-03-30 00:39:28,985 | INFO | Approval email sent
+2026-03-30 00:41:57,138 | INFO | 
+Running manual test...
+
+2026-03-30 00:41:57,138 | INFO | Running newsletter job...
+2026-03-30 00:42:03,235 | INFO | Collected articles: 3
+2026-03-30 00:42:51,530 | INFO | Sentiment distribution:
+2026-03-30 00:42:51,531 | INFO | [Negative] Stanford study outlines dangers of asking AI chatbots for personal advice
+2026-03-30 00:42:51,531 | INFO | [Positive] Anthropic’s Claude popularity with paying consumers is skyrocketing
+2026-03-30 00:42:51,531 | INFO | [Neutral] The trends that will shape AI and tech in 2026 - IBM
+2026-03-30 00:42:51,532 | INFO | Newsletter generated
+2026-03-30 00:42:51,541 | INFO | Saved edition 27
+2026-03-30 00:42:51,551 | INFO | Preview saved
+2026-03-30 00:42:53,039 | INFO | Email sent to n200179@rguktn.ac.in
+2026-03-30 00:42:53,039 | INFO | Approval email sent
