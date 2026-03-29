@@ -6,6 +6,7 @@ class NewsletterState(TypedDict):
     filtered_articles : List[Dict]
     summaries : List[Dict]
     newsletter_draft : str
+    clusters : List[List[Dict]]
     quality_passed : bool
     final_newsletter : str
     error : Optional[str]

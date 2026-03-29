@@ -71,17 +71,29 @@ def extract_json(text: str):
     return text.strip()
 
 
-def normalize_newsletter(data):
+def normalize_newsletter(data, original_summaries):
     normalized_sections = []
+
+    # 🔥 Create lookup by title
+    lookup = {item["title"]: item for item in original_summaries}
 
     for section in data.get("sections", []):
         category = section.get("category", "Other")
 
         for article in section.get("articles", []):
+            title = article.get("title", "")
+            summary = article.get("summary", "")
+
+            # 🔥 Fetch original data
+            original = lookup.get(title, {})
+
             normalized_sections.append({
                 "category": category,
-                "title": article.get("title", ""),
-                "summary": article.get("summary", "")
+                "title": title,
+                "summary": summary,
+                "url": original.get("url"),                  # ✅ FIX
+                "score": original.get("score", 0),           # ✅ FIX
+                "sentiment": original.get("sentiment", "Neutral")  # ✅ FIX
             })
 
     return {
@@ -106,7 +118,7 @@ def format_newsletter(summaries):
 
         try:
             parsed = json.loads(cleaned)
-            return normalize_newsletter(parsed)
+            return normalize_newsletter(parsed, summaries)
 
         except Exception as e:
             logger.warning(f"JSON failed (attempt {attempt + 1})")

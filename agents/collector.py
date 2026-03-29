@@ -2,6 +2,10 @@ from tavily import TavilyClient
 from config import TAVILY_API_KEY
 import feedparser
 
+from langgraph.graph import StateGraph, END
+from agents.state import NewsletterState
+from agents.cluster import cluster_articles, merge_clusters
+
 client = TavilyClient(api_key=TAVILY_API_KEY)
 
 
@@ -109,12 +113,15 @@ def filter_node(state):
         if not url.startswith("http"):
             continue
 
-        # ❌ Remove category / generic pages
+        # ❌ Remove category / aggregator pages
         if any(x in url for x in [
             "/tag/",
             "/category/",
             "/topics/",
+            "/topic/",
             "/latest",
+            "/section/",
+            "artificialintelligence"
         ]):
             continue
 
@@ -126,13 +133,19 @@ def filter_node(state):
         if any(x in title for x in [
             "latest news",
             "ai news",
+            "artificial intelligence",
+            "ai (artificial intelligence)",
             "home",
             "updates"
         ]):
             continue
 
+        # ❌ Remove weak titles
+        if len(title.split()) < 4:
+            continue
+
         # ❌ Ensure usable content
-        if len(content) < 80:
+        if len(content) < 120:
             continue
 
         filtered.append({
@@ -150,8 +163,6 @@ def filter_node(state):
 # -------------------------------
 # GRAPH
 # -------------------------------
-from langgraph.graph import StateGraph, END
-from agents.state import NewsletterState
 
 
 def build_collector_graph():
@@ -161,12 +172,17 @@ def build_collector_graph():
     builder.add_node("rss", rss_node)
     builder.add_node("merge", merge_node)
     builder.add_node("filter", filter_node)
+    builder.add_node("cluster", cluster_articles)
+    builder.add_node("merge_clusters", merge_clusters)
 
     builder.set_entry_point("search")
 
     builder.add_edge("search", "rss")
     builder.add_edge("rss", "merge")
     builder.add_edge("merge", "filter")
-    builder.add_edge("filter", END)
+    builder.add_edge("filter", "cluster")
+    builder.add_edge("cluster", "merge_clusters")
+
+    builder.add_edge("merge_clusters", END)
 
     return builder.compile()

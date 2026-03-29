@@ -124,6 +124,7 @@ def run_newsletter_job():
             "topic": "latest AI news",
             "raw_articles": [],
             "filtered_articles": [],
+            "clusters": [],  # ✅ IMPORTANT
             "summaries": [],
             "newsletter_draft": "",
             "quality_passed": False,
@@ -131,9 +132,30 @@ def run_newsletter_job():
             "error": None
         }
 
+        # -------------------------------
+        # 1. COLLECT
+        # -------------------------------
         state = collector.invoke(state)
+        logger.info(f"Collected articles: {len(state.get('raw_articles', []))}")
+
+        # -------------------------------
+        # 2. PROCESS (FULL PIPELINE)
+        # -------------------------------
         state = processor.invoke(state)
 
+        # -------------------------------
+        # DEBUG: SENTIMENT CHECK (🔥 NEW)
+        # -------------------------------
+        summaries = state.get("summaries", [])
+
+        if summaries:
+            logger.info("Sentiment distribution:")
+            for s in summaries:
+                logger.info(f"[{s.get('sentiment', 'NA')}] {s.get('title', '')}")
+
+        # -------------------------------
+        # FINAL OUTPUT
+        # -------------------------------
         newsletter = state["final_newsletter"]
 
         if not newsletter or isinstance(newsletter, str):
@@ -142,21 +164,31 @@ def run_newsletter_job():
 
         logger.info("Newsletter generated")
 
+        # -------------------------------
+        # SAVE
+        # -------------------------------
         edition_id = save_edition(newsletter)
         logger.info(f"Saved edition {edition_id}")
 
+        # -------------------------------
+        # PREVIEW HTML
+        # -------------------------------
         html = render_email(newsletter, edition_number=edition_id)
+
         with open("test_email.html", "w", encoding="utf-8") as f:
             f.write(html)
 
         logger.info("Preview saved")
 
+        # -------------------------------
+        # SEND EMAIL
+        # -------------------------------
         send_approval_email(newsletter, edition_id)
 
     except Exception as e:
         logger.exception(f"CRITICAL ERROR in newsletter job: {str(e)}")
 
-
+        
 # -------------------------------
 # 5. LIFESPAN (Startup/Shutdown)
 # -------------------------------

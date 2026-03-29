@@ -50,6 +50,25 @@
                     <!-- CARD -->
                     <div style="border:1px solid #e5e7eb; border-radius:8px; padding:14px 16px; margin-bottom:12px;">
 
+                        <!-- SENTIMENT BADGE (NEW) -->
+                        {% if section.sentiment %}
+                        <div style="margin-bottom:6px;">
+                            {% if section.sentiment == "Positive" %}
+                                <span style="font-size:11px; font-weight:600; color:#166534; background:#dcfce7; padding:3px 8px; border-radius:999px;">
+                                    Positive
+                                </span>
+                            {% elif section.sentiment == "Negative" %}
+                                <span style="font-size:11px; font-weight:600; color:#991b1b; background:#fee2e2; padding:3px 8px; border-radius:999px;">
+                                    Negative
+                                </span>
+                            {% else %}
+                                <span style="font-size:11px; font-weight:600; color:#374151; background:#e5e7eb; padding:3px 8px; border-radius:999px;">
+                                    Neutral
+                                </span>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+
                         <!-- TITLE -->
                         <div style="font-size:15px; font-weight:600; color:#111827; margin-bottom:6px; line-height:1.4;">
                             {{ section.title }}
@@ -60,11 +79,11 @@
                             {{ section.summary }}
                         </div>
 
-                        <!-- READ MORE LINK (NEW FEATURE) -->
+                        <!-- READ MORE LINK -->
                         {% if section.url %}
                         <div style="margin-top:10px;">
                             <a href="{{ section.url }}" target="_blank"
-                               style="font-size:12px; color:#1a73e8; text-decoration:none; font-weight:500;">
+                            style="font-size:12px; color:#1a73e8; text-decoration:none; font-weight:500;">
                                 Read more →
                             </a>
                         </div>

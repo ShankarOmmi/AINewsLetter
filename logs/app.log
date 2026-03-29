@@ -185,3 +185,115 @@ Running manual test...
 2026-03-29 12:14:17,221 | INFO | Preview saved
 2026-03-29 12:14:18,618 | INFO | Email sent to n200179@rguktn.ac.in
 2026-03-29 12:14:18,619 | INFO | Approval email sent
+2026-03-29 19:06:02,177 | INFO | 
+Running manual test...
+
+2026-03-29 19:06:02,183 | INFO | Running newsletter job...
+2026-03-29 19:06:09,275 | INFO | Collected articles: 4
+2026-03-29 19:07:10,644 | INFO | Sentiment distribution:
+2026-03-29 19:07:10,645 | INFO | [Positive] The trends that will shape AI and tech in 2026 - IBM
+2026-03-29 19:07:10,646 | INFO | [Positive] What's next for AI in 2026 | MIT Technology Review
+2026-03-29 19:07:10,647 | INFO | [Neutral] Stanford study outlines dangers of asking AI chatbots for personal advice
+2026-03-29 19:07:10,648 | INFO | [Positive] Anthropic’s Claude popularity with paying consumers is skyrocketing
+2026-03-29 19:07:10,649 | INFO | Newsletter generated
+2026-03-29 19:07:10,657 | INFO | Saved edition 20
+2026-03-29 19:07:10,667 | INFO | Preview saved
+2026-03-29 19:07:11,316 | INFO | Email sent to n200179@rguktn.ac.in
+2026-03-29 19:07:11,317 | INFO | Approval email sent
+2026-03-29 19:12:56,486 | INFO | 
+Running manual test...
+
+2026-03-29 19:12:56,487 | INFO | Running newsletter job...
+2026-03-29 19:13:05,131 | INFO | Collected articles: 6
+2026-03-29 19:15:12,731 | WARNING | JSON failed (attempt 1)
+2026-03-29 19:15:43,447 | INFO | Sentiment distribution:
+2026-03-29 19:15:43,448 | INFO | [Positive] Anthropic’s Claude popularity with paying consumers is skyrocketing
+2026-03-29 19:15:43,448 | INFO | [Positive] What's next for AI in 2026 | MIT Technology Review
+2026-03-29 19:15:43,449 | INFO | [Positive] The trends that will shape AI and tech in 2026 - IBM
+2026-03-29 19:15:43,449 | INFO | [Positive] What's next in AI: 7 trends to watch in 2026 - Microsoft Source
+2026-03-29 19:15:43,450 | INFO | [Positive] Morgan Stanley warns an AI breakthrough Is coming in 2026 - Fortune
+2026-03-29 19:15:43,451 | INFO | [Neutral] Stanford study outlines dangers of asking AI chatbots for personal advice
+2026-03-29 19:15:43,452 | INFO | Newsletter generated
+2026-03-29 19:15:43,459 | INFO | Saved edition 21
+2026-03-29 19:15:43,464 | INFO | Preview saved
+2026-03-29 19:15:45,010 | INFO | Email sent to n200179@rguktn.ac.in
+2026-03-29 19:15:45,011 | INFO | Approval email sent
+2026-03-29 19:19:17,378 | INFO | 
+Running manual test...
+
+2026-03-29 19:19:17,378 | INFO | Running newsletter job...
+2026-03-29 19:19:24,515 | INFO | Collected articles: 4
+2026-03-29 19:20:29,716 | INFO | Sentiment distribution:
+2026-03-29 19:20:29,717 | INFO | [The single core fact of this article is that Anthropic's AI model Claude has seen a significant surge in paid subscriptions, with paid subscriptions more than doubling this year according to a TechCrunch report.
+
+Confirmed.
+
+The outcome of this confirmed event is clearly good for the field, users, or society, as it highlights the increasing demand for advanced AI models and Anthropic's ability to capitalize on this trend.
+
+Positive] Anthropic’s Claude popularity with paying consumers is skyrocketing
+2026-03-29 19:20:29,717 | INFO | [The single core fact of this article is that IBM has outlined 18 expert predictions for 2026, highlighting the growing importance of AI capabilities in enterprise settings.
+
+The core fact of this article is a prediction/discussion/warning about future trends, not a confirmed event.
+
+Since it is a prediction/discussion/warning, the answer is Neutral.
+
+Neutral] The trends that will shape AI and tech in 2026 - IBM
+2026-03-29 19:20:29,718 | INFO | [The single core fact of this article is that Google's Gemini app now integrates with the Shopping Graph data set and OpenAI has announced a ChatGPT shopping feature, enabling users to tap into a vast database of products and sellers.
+
+However, this is a prediction about what's next for AI in 2026, not a confirmed event.
+
+Given that it is a prediction, trend, opinion, analysis, or plan, the classification is Neutral.] What's next for AI in 2026 | MIT Technology Review
+2026-03-29 19:20:29,718 | INFO | [The article reports on a Stanford study that has already measured and quantified the harm caused by AI sycophancy, but it highlights the dangers and risks associated with this phenomenon, without explicitly stating that anything bad has already happened. 
+
+Negative] Stanford study outlines dangers of asking AI chatbots for personal advice
+2026-03-29 19:20:29,719 | INFO | Newsletter generated
+2026-03-29 19:20:29,724 | INFO | Saved edition 22
+2026-03-29 19:20:29,730 | INFO | Preview saved
+2026-03-29 19:20:31,294 | INFO | Email sent to n200179@rguktn.ac.in
+2026-03-29 19:20:31,295 | INFO | Approval email sent
+2026-03-29 19:21:00,341 | INFO | 
+Running manual test...
+
+2026-03-29 19:21:00,342 | INFO | Running newsletter job...
+2026-03-29 19:21:06,952 | INFO | Collected articles: 4
+2026-03-29 19:22:30,265 | INFO | Sentiment distribution:
+2026-03-29 19:22:30,266 | INFO | [The article discusses 18 expert predictions for 2026, outlining trends that will shape AI and tech, without confirming any specific outcomes. 
+
+Neutral] The trends that will shape AI and tech in 2026 - IBM
+2026-03-29 19:22:30,266 | INFO | [The article reports on the announcements of new shopping features by Google and OpenAI, allowing for seamless consumer experiences through AI platforms, and predicts a shift in consumer behavior and growth in deals between AI companies and retailers.
+
+Neutral] What's next for AI in 2026 | MIT Technology Review
+2026-03-29 19:22:30,266 | INFO | [The single core fact of this article is that Claude's paid subscriptions have more than doubled this year, according to a TechCrunch report.
+
+This outcome has already happened and is confirmed, as it is stated as a fact in a TechCrunch report, which suggests that the growth has been observed and verified.
+
+The outcome is clearly good for the field, users, and Anthropic, as Claude's increasing appeal and growing user base are seen as positive signs for the company and the industry.
+
+Since all the conditions for a Positive label are met, the article should be classified as such.
+
+Positive] Anthropic’s Claude popularity with paying consumers is skyrocketing
+2026-03-29 19:22:30,266 | INFO | [The article reports on the findings of a Stanford study that has already measured the risks of users relying excessively on AI systems for guidance, without specifying the outcome.
+
+Neutral] Stanford study outlines dangers of asking AI chatbots for personal advice
+2026-03-29 19:22:30,266 | INFO | Newsletter generated
+2026-03-29 19:22:30,271 | INFO | Saved edition 23
+2026-03-29 19:22:30,277 | INFO | Preview saved
+2026-03-29 19:22:31,716 | INFO | Email sent to n200179@rguktn.ac.in
+2026-03-29 19:22:31,716 | INFO | Approval email sent
+2026-03-29 19:27:04,731 | INFO | 
+Running manual test...
+
+2026-03-29 19:27:04,732 | INFO | Running newsletter job...
+2026-03-29 19:27:12,909 | INFO | Collected articles: 6
+2026-03-29 19:29:40,557 | INFO | Sentiment distribution:
+2026-03-29 19:29:40,557 | INFO | [Neutral] What's next in AI: 7 trends to watch in 2026 - Microsoft Source
+2026-03-29 19:29:40,558 | INFO | [Neutral] What's next for AI in 2026 | MIT Technology Review
+2026-03-29 19:29:40,558 | INFO | [Neutral] Five Trends in AI and Data Science for 2026
+2026-03-29 19:29:40,559 | INFO | [Positive] Anthropic’s Claude popularity with paying consumers is skyrocketing
+2026-03-29 19:29:40,559 | INFO | [Neutral] The trends that will shape AI and tech in 2026 - IBM
+2026-03-29 19:29:40,559 | INFO | [Negative] Stanford study outlines dangers of asking AI chatbots for personal advice
+2026-03-29 19:29:40,560 | INFO | Newsletter generated
+2026-03-29 19:29:40,566 | INFO | Saved edition 24
+2026-03-29 19:29:40,571 | INFO | Preview saved
+2026-03-29 19:29:41,211 | INFO | Email sent to n200179@rguktn.ac.in
+2026-03-29 19:29:41,212 | INFO | Approval email sent
