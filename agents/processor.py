@@ -5,7 +5,50 @@ from langgraph.graph import StateGraph, END
 from agents.state import NewsletterState
 from chains.quality_check import check_quality
 
+from bs4 import BeautifulSoup
+import re
+
 import time
+import difflib
+
+def find_best_url(title, summary_map):
+    titles = list(summary_map.keys())
+
+    # 1. Exact match
+    if title in summary_map:
+        return summary_map[title]
+
+    # 2. Fuzzy match
+    match = difflib.get_close_matches(title, titles, n=1, cutoff=0.5)
+
+    if match:
+        return summary_map[match[0]]
+
+    # 3. Partial match fallback
+    for t in titles:
+        if title.lower() in t.lower() or t.lower() in title.lower():
+            return summary_map[t]
+
+    return ""
+
+
+def clean_content(raw_html):
+    if not raw_html:
+        return ""
+
+    soup = BeautifulSoup(raw_html, "html.parser")
+
+    # Remove unwanted tags
+    for tag in soup(["script", "style", "nav", "footer", "header", "aside"]):
+        tag.decompose()
+
+    text = soup.get_text(separator=" ")
+
+    # Remove extra whitespace
+    text = re.sub(r"\s+", " ", text).strip()
+
+    # Optional: limit length (prevents huge prompts)
+    return text[:3000]
 
 
 # -------------------------------
@@ -16,18 +59,24 @@ def summarise_node(state):
 
     for article in state["raw_articles"]:
         try:
+            cleaned_content = clean_content(article.get("content", ""))
+
+            # Skip useless content
+            if len(cleaned_content) < 50:
+                continue
+
             summary = summarise_article(
-                article["title"],
-                article["content"]
+                article.get("title", ""),
+                cleaned_content
             )
 
             summaries.append({
                 "title": article.get("title", "No title"),
-                "url": article.get("url", ""),   # ✅ SAFE URL
+                "url": article.get("url", ""),
                 "summary": summary
             })
 
-            time.sleep(1)  # avoid rate limits
+            time.sleep(1)
 
         except Exception as e:
             print(f"Error summarising: {article.get('title')}")
@@ -52,18 +101,19 @@ def format_node(state):
             "newsletter_draft": None
         }
 
-    # ✅ ENSURE URL IS PRESERVED
-    # Sometimes LLM drops it → we reattach manually
-    for i, section in enumerate(newsletter.get("sections", [])):
-        if "url" not in section or not section["url"]:
-            if i < len(state["summaries"]):
-                section["url"] = state["summaries"][i].get("url", "")
+    summary_map = {
+        item["title"]: item.get("url", "")
+        for item in state["summaries"]
+    }
+
+    for section in newsletter.get("sections", []):
+        title = section.get("title", "")
+        section["url"] = find_best_url(title, summary_map)
 
     return {
         **state,
         "newsletter_draft": newsletter
     }
-
 
 # -------------------------------
 # 3. QUALITY NODE
@@ -85,6 +135,7 @@ def quality_node(state):
         "quality_reason": result,
         "final_newsletter": state["newsletter_draft"]
     }
+
 
 
 # -------------------------------

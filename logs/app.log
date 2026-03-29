@@ -158,3 +158,30 @@ Running manual test...
 2026-03-29 11:37:40,374 | INFO | Preview saved
 2026-03-29 11:37:41,651 | INFO | Email sent to n200179@rguktn.ac.in
 2026-03-29 11:37:41,651 | INFO | Approval email sent
+2026-03-29 11:45:30,050 | INFO | 
+Running manual test...
+
+2026-03-29 11:45:30,050 | INFO | Running newsletter job...
+2026-03-29 11:45:46,123 | INFO | Newsletter generated
+2026-03-29 11:45:46,135 | INFO | Saved edition 17
+2026-03-29 11:45:46,139 | INFO | Preview saved
+2026-03-29 11:45:46,732 | INFO | Email sent to n200179@rguktn.ac.in
+2026-03-29 11:45:46,732 | INFO | Approval email sent
+2026-03-29 12:07:25,976 | INFO | 
+Running manual test...
+
+2026-03-29 12:07:25,977 | INFO | Running newsletter job...
+2026-03-29 12:07:44,829 | INFO | Newsletter generated
+2026-03-29 12:07:44,836 | INFO | Saved edition 18
+2026-03-29 12:07:44,840 | INFO | Preview saved
+2026-03-29 12:07:46,170 | INFO | Email sent to n200179@rguktn.ac.in
+2026-03-29 12:07:46,170 | INFO | Approval email sent
+2026-03-29 12:13:59,901 | INFO | 
+Running manual test...
+
+2026-03-29 12:13:59,901 | INFO | Running newsletter job...
+2026-03-29 12:14:17,210 | INFO | Newsletter generated
+2026-03-29 12:14:17,217 | INFO | Saved edition 19
+2026-03-29 12:14:17,221 | INFO | Preview saved
+2026-03-29 12:14:18,618 | INFO | Email sent to n200179@rguktn.ac.in
+2026-03-29 12:14:18,619 | INFO | Approval email sent
