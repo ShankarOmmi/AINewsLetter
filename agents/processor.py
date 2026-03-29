@@ -22,15 +22,15 @@ def summarise_node(state):
             )
 
             summaries.append({
-                "title": article["title"],
-                "url": article["url"],
+                "title": article.get("title", "No title"),
+                "url": article.get("url", ""),   # ✅ SAFE URL
                 "summary": summary
             })
 
             time.sleep(1)  # avoid rate limits
 
         except Exception as e:
-            print(f"Error summarising: {article['title']}")
+            print(f"Error summarising: {article.get('title')}")
             continue
 
     return {
@@ -40,7 +40,7 @@ def summarise_node(state):
 
 
 # -------------------------------
-# 2. FORMAT NODE
+# 2. FORMAT NODE (UPDATED)
 # -------------------------------
 def format_node(state):
     newsletter = format_newsletter(state["summaries"])
@@ -52,17 +52,22 @@ def format_node(state):
             "newsletter_draft": None
         }
 
+    # ✅ ENSURE URL IS PRESERVED
+    # Sometimes LLM drops it → we reattach manually
+    for i, section in enumerate(newsletter.get("sections", [])):
+        if "url" not in section or not section["url"]:
+            if i < len(state["summaries"]):
+                section["url"] = state["summaries"][i].get("url", "")
+
     return {
         **state,
         "newsletter_draft": newsletter
     }
 
+
 # -------------------------------
-# 3. QUALITY NODE (BASIC VERSION)
+# 3. QUALITY NODE
 # -------------------------------
-
-
-
 def quality_node(state):
     if not state.get("newsletter_draft"):
         return {
@@ -80,6 +85,8 @@ def quality_node(state):
         "quality_reason": result,
         "final_newsletter": state["newsletter_draft"]
     }
+
+
 # -------------------------------
 # 4. BUILD GRAPH
 # -------------------------------

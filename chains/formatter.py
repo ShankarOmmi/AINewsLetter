@@ -4,6 +4,8 @@ from config import GROQ_API_KEY
 import json
 import re
 
+from utils.logger import logger
+
 
 llm = ChatGroq(
     api_key=GROQ_API_KEY,
@@ -107,7 +109,7 @@ def format_newsletter(summaries):
             return normalize_newsletter(parsed)
 
         except Exception as e:
-            print(f"\nJSON failed (attempt {attempt+1})")
+            logger.warning(f"JSON failed (attempt {attempt + 1})")
 
     #  If still failing
     print("\n FINAL JSON FAILURE")

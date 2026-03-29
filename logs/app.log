@@ -1,0 +1,160 @@
+2026-03-29 10:01:29,458 | INFO | Newsletter generated
+2026-03-29 10:01:29,467 | INFO | Saved edition 1
+2026-03-29 10:01:29,478 | INFO | Preview saved
+2026-03-29 10:01:30,952 | INFO | Approval email sent!
+2026-03-29 10:07:03,385 | INFO | 
+Running manual test...
+
+2026-03-29 10:07:03,386 | INFO | Running newsletter job...
+2026-03-29 10:07:21,298 | WARNING | JSON failed (attempt 1)
+2026-03-29 10:07:22,478 | WARNING | JSON failed (attempt 2)
+2026-03-29 10:07:37,708 | WARNING | JSON failed (attempt 3)
+2026-03-29 10:07:52,895 | WARNING | JSON failed (attempt 4)
+2026-03-29 10:08:08,419 | WARNING | JSON failed (attempt 5)
+2026-03-29 10:08:30,480 | INFO | Newsletter generated
+2026-03-29 10:08:30,487 | INFO | Saved edition 2
+2026-03-29 10:08:30,491 | INFO | Preview saved
+2026-03-29 10:08:31,902 | INFO | Email sent to n200179@rguktn.ac.in
+2026-03-29 10:08:31,903 | INFO | Approval email sent!
+2026-03-29 10:13:26,087 | INFO | 
+Running manual test...
+
+2026-03-29 10:13:26,088 | INFO | Running newsletter job...
+2026-03-29 10:13:44,220 | WARNING | JSON failed (attempt 1)
+2026-03-29 10:13:45,143 | INFO | Newsletter generated
+2026-03-29 10:13:45,152 | INFO | Saved edition 3
+2026-03-29 10:13:45,176 | INFO | Preview saved
+2026-03-29 10:13:46,503 | INFO | Email sent to n200179@rguktn.ac.in
+2026-03-29 10:13:46,503 | INFO | Approval email sent!
+2026-03-29 10:31:21,852 | INFO | 
+Running manual test...
+
+2026-03-29 10:31:21,853 | INFO | Running newsletter job...
+2026-03-29 10:31:40,261 | INFO | Newsletter generated
+2026-03-29 10:31:40,269 | INFO | Saved edition 4
+2026-03-29 10:31:40,274 | INFO | Preview saved
+2026-03-29 10:31:41,728 | INFO | Email sent to n200179@rguktn.ac.in
+2026-03-29 10:31:41,728 | INFO | Approval email sent!
+2026-03-29 10:42:13,799 | INFO | 
+Running manual test...
+
+2026-03-29 10:42:13,800 | INFO | Running newsletter job...
+2026-03-29 10:42:31,956 | INFO | Newsletter generated
+2026-03-29 10:42:31,960 | INFO | Saved edition 5
+2026-03-29 10:42:31,964 | INFO | Preview saved
+2026-03-29 10:42:33,162 | INFO | Email sent to n200179@rguktn.ac.in
+2026-03-29 10:42:33,163 | INFO | Approval email sent!
+2026-03-29 10:44:02,159 | INFO | 
+Running manual test...
+
+2026-03-29 10:44:02,160 | INFO | Running newsletter job...
+2026-03-29 10:44:21,983 | WARNING | JSON failed (attempt 1)
+2026-03-29 10:44:34,287 | INFO | Newsletter generated
+2026-03-29 10:44:34,292 | INFO | Saved edition 6
+2026-03-29 10:44:34,295 | INFO | Preview saved
+2026-03-29 10:44:35,666 | INFO | Email sent to n200179@rguktn.ac.in
+2026-03-29 10:44:35,666 | INFO | Approval email sent!
+2026-03-29 10:46:37,505 | INFO | 
+Running manual test...
+
+2026-03-29 10:46:37,506 | INFO | Running newsletter job...
+2026-03-29 10:46:59,395 | INFO | Newsletter generated
+2026-03-29 10:46:59,406 | INFO | Saved edition 7
+2026-03-29 10:46:59,418 | INFO | Preview saved
+2026-03-29 10:47:00,875 | INFO | Email sent to n200179@rguktn.ac.in
+2026-03-29 10:47:00,875 | INFO | Approval email sent!
+2026-03-29 10:59:29,255 | INFO | 
+Running manual test...
+
+2026-03-29 10:59:29,256 | INFO | Running newsletter job...
+2026-03-29 10:59:46,972 | INFO | Newsletter generated
+2026-03-29 10:59:46,979 | INFO | Saved edition 8
+2026-03-29 10:59:46,984 | INFO | Preview saved
+2026-03-29 10:59:47,585 | INFO | Email sent to n200179@rguktn.ac.in
+2026-03-29 10:59:47,585 | INFO | Approval email sent!
+2026-03-29 11:01:47,212 | INFO | 
+Running manual test...
+
+2026-03-29 11:01:47,213 | INFO | Running newsletter job...
+2026-03-29 11:02:03,910 | WARNING | JSON failed (attempt 1)
+2026-03-29 11:02:05,012 | WARNING | JSON failed (attempt 2)
+2026-03-29 11:02:15,284 | WARNING | JSON failed (attempt 3)
+2026-03-29 11:02:32,920 | INFO | Newsletter generated
+2026-03-29 11:02:32,929 | INFO | Saved edition 9
+2026-03-29 11:02:32,934 | INFO | Preview saved
+2026-03-29 11:02:33,697 | INFO | Email sent to n200179@rguktn.ac.in
+2026-03-29 11:02:33,697 | INFO | Approval email sent!
+2026-03-29 11:03:02,068 | INFO | 
+Running manual test...
+
+2026-03-29 11:03:02,069 | INFO | Running newsletter job...
+2026-03-29 11:03:21,638 | WARNING | JSON failed (attempt 1)
+2026-03-29 11:03:38,715 | INFO | Newsletter generated
+2026-03-29 11:03:38,721 | INFO | Saved edition 10
+2026-03-29 11:03:38,726 | INFO | Preview saved
+2026-03-29 11:03:38,726 | ERROR | CRITICAL ERROR in newsletter job: name 'BASE_URL' is not defined
+Traceback (most recent call last):
+  File "C:\Users\Shankar\Desktop\AINewsLetter\main.py", line 154, in run_newsletter_job
+    send_approval_email(newsletter, edition_id)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shankar\Desktop\AINewsLetter\main.py", line 79, in send_approval_email
+    approve_link = f"{BASE_URL}/approve?id={edition_id}"
+                      ^^^^^^^^
+NameError: name 'BASE_URL' is not defined
+2026-03-29 11:05:21,455 | INFO | 
+Running manual test...
+
+2026-03-29 11:05:21,456 | INFO | Running newsletter job...
+2026-03-29 11:05:40,228 | WARNING | JSON failed (attempt 1)
+2026-03-29 11:05:49,488 | INFO | Newsletter generated
+2026-03-29 11:05:49,498 | INFO | Saved edition 11
+2026-03-29 11:05:49,505 | INFO | Preview saved
+2026-03-29 11:05:51,047 | INFO | Email sent to n200179@rguktn.ac.in
+2026-03-29 11:05:51,047 | INFO | Approval email sent
+2026-03-29 11:09:05,380 | INFO | 
+Running manual test...
+
+2026-03-29 11:09:05,381 | INFO | Running newsletter job...
+2026-03-29 11:09:22,316 | INFO | Newsletter generated
+2026-03-29 11:09:22,325 | INFO | Saved edition 12
+2026-03-29 11:09:22,332 | INFO | Preview saved
+2026-03-29 11:09:23,608 | INFO | Email sent to n200179@rguktn.ac.in
+2026-03-29 11:09:23,608 | INFO | Approval email sent
+2026-03-29 11:16:32,167 | INFO | 
+Running manual test...
+
+2026-03-29 11:16:32,167 | INFO | Running newsletter job...
+2026-03-29 11:16:49,801 | INFO | Newsletter generated
+2026-03-29 11:16:49,810 | INFO | Saved edition 13
+2026-03-29 11:16:49,821 | INFO | Preview saved
+2026-03-29 11:16:51,152 | INFO | Email sent to n200179@rguktn.ac.in
+2026-03-29 11:16:51,152 | INFO | Approval email sent
+2026-03-29 11:19:19,340 | INFO | 
+Running manual test...
+
+2026-03-29 11:19:19,341 | INFO | Running newsletter job...
+2026-03-29 11:19:35,730 | INFO | Newsletter generated
+2026-03-29 11:19:35,736 | INFO | Saved edition 14
+2026-03-29 11:19:35,743 | INFO | Preview saved
+2026-03-29 11:19:37,610 | INFO | Email sent to n200179@rguktn.ac.in
+2026-03-29 11:19:37,610 | INFO | Approval email sent
+2026-03-29 11:23:13,234 | INFO | 
+Running manual test...
+
+2026-03-29 11:23:13,235 | INFO | Running newsletter job...
+2026-03-29 11:23:34,115 | INFO | Newsletter generated
+2026-03-29 11:23:34,125 | INFO | Saved edition 15
+2026-03-29 11:23:34,153 | INFO | Preview saved
+2026-03-29 11:23:35,793 | INFO | Email sent to n200179@rguktn.ac.in
+2026-03-29 11:23:35,793 | INFO | Approval email sent
+2026-03-29 11:37:05,296 | INFO | 
+Running manual test...
+
+2026-03-29 11:37:05,297 | INFO | Running newsletter job...
+2026-03-29 11:37:22,832 | WARNING | JSON failed (attempt 1)
+2026-03-29 11:37:24,056 | WARNING | JSON failed (attempt 2)
+2026-03-29 11:37:40,364 | INFO | Newsletter generated
+2026-03-29 11:37:40,370 | INFO | Saved edition 16
+2026-03-29 11:37:40,374 | INFO | Preview saved
+2026-03-29 11:37:41,651 | INFO | Email sent to n200179@rguktn.ac.in
+2026-03-29 11:37:41,651 | INFO | Approval email sent

@@ -16,23 +16,39 @@ from apscheduler.schedulers.background import BackgroundScheduler
 import time
 import json
 
+from utils.logger import logger
+
 
 # -------------------------------
 # 1. EMAIL RENDER FUNCTION
 # -------------------------------
-def render_email(newsletter, unsubscribe_url="http://example.com"):
+from collections import defaultdict
+import datetime
+
+COLORS = ["#0a0a0a", "#1a73e8", "#2e7d32", "#8e24aa"]
+
+def render_email(newsletter, edition_number, unsubscribe_url="http://example.com"):
     env = Environment(loader=FileSystemLoader("templates"))
     template = env.get_template("newsletter.html")
+
+    # GROUP SECTIONS (IMPORTANT FIX)
+    grouped_sections = defaultdict(list)
+    for item in newsletter["sections"]:
+        grouped_sections[item["category"]].append(item)
+
+    # COLOR ROTATION
+    header_color = COLORS[edition_number % 4]
 
     return template.render(
         subject=newsletter["subject"],
         intro=newsletter["intro"],
-        sections=newsletter["sections"],
+        grouped_sections=grouped_sections,  
         closing=newsletter["closing"],
-        unsubscribe_url=unsubscribe_url
+        unsubscribe_url=unsubscribe_url,
+        edition_number=edition_number,
+        date=datetime.datetime.now().strftime("%B %d, %Y"),
+        header_color=header_color
     )
-
-
 # -------------------------------
 # 2. SAVE EDITION (NEW)
 # -------------------------------
@@ -60,78 +76,85 @@ def save_edition(newsletter):
 # 3. SEND APPROVAL EMAIL (NEW)
 # -------------------------------
 def send_approval_email(newsletter, edition_id):
+    # ✅ Use localhost directly (no BASE_URL)
     approve_link = f"http://localhost:8000/approve?id={edition_id}"
     reject_link = f"http://localhost:8000/reject?id={edition_id}"
 
-    # Render full newsletter HTML
-    html = render_email(newsletter)
+    # Full newsletter HTML
+    html = render_email(newsletter, edition_number=edition_id)
 
-    # Add approval buttons on top
+    # Approval UI
     approval_section = f"""
-    <div style="padding: 15px; border: 2px solid #ccc; margin-bottom: 20px;">
-        <h3>Approval Required</h3>
-        <a href="{approve_link}" style="color: green; font-size: 18px;">✅ Approve</a>
-        &nbsp;&nbsp;&nbsp;
-        <a href="{reject_link}" style="color: red; font-size: 18px;">❌ Reject</a>
+    <div style="padding:15px; border:2px solid #e5e7eb; margin-bottom:20px; text-align:center;">
+        <h3 style="margin:0 0 10px 0;">Approval Required</h3>
+
+        <a href="{approve_link}" style="background:#16a34a; color:white; padding:10px 16px; text-decoration:none; border-radius:6px;">
+            Approve
+        </a>
+
+        &nbsp;&nbsp;
+
+        <a href="{reject_link}" style="background:#dc2626; color:white; padding:10px 16px; text-decoration:none; border-radius:6px;">
+            Reject
+        </a>
     </div>
     """
 
-    # Combine
     final_html = approval_section + html
 
     send_email(
         to_email="n200179@rguktn.ac.in",
-        subject="Approval Required - Newsletter",
+        subject=f"Approval Required - Edition #{edition_id}",
         html_content=final_html
     )
 
-    print(" Approval email sent!")
+    logger.info("Approval email sent")
 
 # -------------------------------
 # 4. NEWSLETTER JOB (UPDATED)
 # -------------------------------
 def run_newsletter_job():
-    print("\n🚀 Running newsletter job...")
+    logger.info("Running newsletter job...")
 
-    collector = build_collector_graph()
-    processor = build_processor_graph()
+    try:
+        collector = build_collector_graph()
+        processor = build_processor_graph()
 
-    state = {
-        "topic": "latest AI news",
-        "raw_articles": [],
-        "filtered_articles": [],
-        "summaries": [],
-        "newsletter_draft": "",
-        "quality_passed": False,
-        "final_newsletter": "",
-        "error": None
-    }
+        state = {
+            "topic": "latest AI news",
+            "raw_articles": [],
+            "filtered_articles": [],
+            "summaries": [],
+            "newsletter_draft": "",
+            "quality_passed": False,
+            "final_newsletter": "",
+            "error": None
+        }
 
-    # Run pipeline
-    state = collector.invoke(state)
-    state = processor.invoke(state)
+        state = collector.invoke(state)
+        state = processor.invoke(state)
 
-    newsletter = state["final_newsletter"]
+        newsletter = state["final_newsletter"]
 
-    if not newsletter or isinstance(newsletter, str):
-        print("❌ Newsletter generation failed")
-        return
+        if not newsletter or isinstance(newsletter, str):
+            logger.error("Newsletter generation failed")
+            return
 
-    print("✅ Newsletter generated")
+        logger.info("Newsletter generated")
 
-    # Save edition
-    edition_id = save_edition(newsletter)
-    print(f"💾 Saved edition {edition_id} (pending approval)")
+        edition_id = save_edition(newsletter)
+        logger.info(f"Saved edition {edition_id}")
 
-    # Generate preview HTML (optional debug)
-    html = render_email(newsletter)
-    with open("test_email.html", "w", encoding="utf-8") as f:
-        f.write(html)
+        html = render_email(newsletter, edition_number=edition_id)
+        with open("test_email.html", "w", encoding="utf-8") as f:
+            f.write(html)
 
-    print("📝 Preview saved as test_email.html")
+        logger.info("Preview saved")
 
-    # Send approval email
-    send_approval_email(newsletter, edition_id)
+        send_approval_email(newsletter, edition_id)
+
+    except Exception as e:
+        logger.exception(f"CRITICAL ERROR in newsletter job: {str(e)}")
 
 
 # -------------------------------
@@ -140,7 +163,7 @@ def run_newsletter_job():
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     create_tables()
-    print("Database initialised")
+    logger.info("Database initialised")
 
     # Scheduler
     scheduler = BackgroundScheduler()
@@ -152,12 +175,12 @@ async def lifespan(app: FastAPI):
     scheduler.add_job(run_newsletter_job, "interval", minutes=2)
 
     scheduler.start()
-    print("Scheduler started")
+    logger.info("Scheduler started")
 
     yield
 
     scheduler.shutdown()
-    print("Shutting down")
+    logger.info("Shutting down")
 
 
 # -------------------------------
@@ -177,9 +200,9 @@ def home():
 # 7. MANUAL RUN
 # -------------------------------
 if __name__ == "__main__":
-    print("\n🧪 Running manual test...\n")
+    logger.info("\nRunning manual test...\n")
 
-    # 🔥 IMPORTANT FIX
+    # IMPORTANT FIX
     create_tables()
 
     run_newsletter_job()

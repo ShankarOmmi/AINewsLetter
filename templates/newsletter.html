@@ -1,35 +1,102 @@
 <!DOCTYPE html>
 <html>
-<body style="font-family: Arial; max-width: 600px; margin: auto;">
+<body style="margin:0; padding:0; background-color:#f4f6f8; font-family: Arial, sans-serif;">
 
-    <h2>{{ subject }}</h2>
+<table width="100%" cellpadding="0" cellspacing="0" style="padding:24px;">
+<tr>
+<td align="center">
 
-    <p>{{ intro }}</p>
+<table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff; border-radius:10px; overflow:hidden; border:1px solid #e5e7eb;">
 
-    <hr>
+    <!-- HEADER -->
+    <tr>
+        <td style="background:{{ header_color }}; padding:28px 32px; text-align:center;">
+            <div style="font-size:11px; letter-spacing:2px; color:#e5e7eb; text-transform:uppercase;">
+                Edition #{{ edition_number }} · {{ date }}
+            </div>
 
-    {% for section in sections %}
-        {% if loop.first or section.category != sections[loop.index0 - 1].category %}
-            <h2 style="margin-top: 30px;">{{ section.category }}</h2>
-            <hr>
-        {% endif %}
+            <div style="font-size:24px; font-weight:700; color:#ffffff; margin-top:8px;">
+                {{ subject }}
+            </div>
 
-        <h4>{{ section.title }}</h4>
-        <p>{{ section.summary }}</p>
-        <br>
-    {% endfor %}
+            <div style="font-size:13px; color:#d1d5db; margin-top:6px;">
+                Your weekly AI briefing
+            </div>
+        </td>
+    </tr>
 
-    <hr>
+    <!-- INTRO -->
+    <tr>
+        <td style="padding:24px 28px; border-bottom:1px solid #e5e7eb;">
+            <p style="margin:0; font-size:14px; color:#374151; line-height:1.6;">
+                {{ intro }}
+            </p>
+        </td>
+    </tr>
 
-    <p>{{ closing }}</p>
+    <!-- CONTENT -->
+    <tr>
+        <td style="padding:24px 28px;">
 
-    <br><br>
+            {% for category, items in grouped_sections.items() %}
 
-    <p style="font-size: 12px; color: gray;">
-        If you want to unsubscribe, click below:
-        <br>
-        <a href="{{ unsubscribe_url }}">Unsubscribe</a>
-    </p>
+                <!-- CATEGORY HEADING -->
+                <div style="font-size:11px; font-weight:600; letter-spacing:2px; color:#9ca3af; text-transform:uppercase; margin:24px 0 12px;">
+                    {{ category }}
+                </div>
+
+                {% for section in items %}
+
+                    <!-- CARD -->
+                    <div style="border:1px solid #e5e7eb; border-radius:8px; padding:14px 16px; margin-bottom:12px;">
+
+                        <!-- TITLE -->
+                        <div style="font-size:15px; font-weight:600; color:#111827; margin-bottom:6px; line-height:1.4;">
+                            {{ section.title }}
+                        </div>
+
+                        <!-- SUMMARY -->
+                        <div style="font-size:13px; color:#4b5563; line-height:1.6;">
+                            {{ section.summary }}
+                        </div>
+
+                        <!-- READ MORE LINK (NEW FEATURE) -->
+                        {% if section.url %}
+                        <div style="margin-top:10px;">
+                            <a href="{{ section.url }}" target="_blank"
+                               style="font-size:12px; color:#1a73e8; text-decoration:none; font-weight:500;">
+                                Read more →
+                            </a>
+                        </div>
+                        {% endif %}
+
+                    </div>
+
+                {% endfor %}
+
+            {% endfor %}
+
+        </td>
+    </tr>
+
+    <!-- FOOTER -->
+    <tr>
+        <td style="background:#f9fafb; padding:18px 28px; text-align:center; border-top:1px solid #e5e7eb;">
+            <div style="font-size:12px; color:#6b7280; line-height:1.6;">
+                {{ closing }}
+                <br><br>
+                <a href="{{ unsubscribe_url }}" style="color:#6b7280; text-decoration:none;">
+                    Unsubscribe
+                </a>
+            </div>
+        </td>
+    </tr>
+
+</table>
+
+</td>
+</tr>
+</table>
 
 </body>
 </html>

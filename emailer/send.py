@@ -1,5 +1,6 @@
 import resend
 from config import RESEND_API_KEY
+from utils.logger import logger
 
 resend.api_key = RESEND_API_KEY
 
@@ -13,9 +14,9 @@ def send_email(to_email, subject, html_content):
             "html": html_content,
         })
 
-        print(f"✅ Email sent to {to_email}")
+        logger.info(f"Email sent to {to_email}")
         return response
 
     except Exception as e:
-        print(f"❌ Email failed: {str(e)}")
+        logger.error(f"Email failed for {to_email}: {str(e)}")
         return None

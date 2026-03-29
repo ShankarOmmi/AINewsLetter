@@ -63,14 +63,22 @@ def get_active_subscribers():
 
     return [dict(row) for row in rows]
 
-def log_send(edition_number, subject, total_recipients, status):
+# -------------------------------
+# SEND TRACKING
+# -------------------------------
+def log_send(edition_id, subject, total, status):
     conn = get_connection()
     cursor = conn.cursor()
 
     cursor.execute("""
-    INSERT INTO sends (edition number, sunject, total_recipients, status)
-    VALUES (?,?,?,?)
-    """, (edition_number, subject, total_recipients, status))
+        INSERT INTO sends (edition_number, subject, total_recipients, status)
+        VALUES (?, ?, ?, ?)
+    """, (
+        edition_id,
+        subject,
+        total,
+        status
+    ))
 
     conn.commit()
     conn.close()
