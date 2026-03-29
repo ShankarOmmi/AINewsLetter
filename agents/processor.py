@@ -8,6 +8,7 @@ from chains.narrative import generate_narrative
 from chains.relevance import score_article
 from chains.category import classify_article
 from chains.sentiment import get_article_sentiment
+from chains.verifier import verify_summary
 
 from bs4 import BeautifulSoup
 import re
@@ -58,33 +59,40 @@ def clean_content(raw_html):
 # -------------------------------
 # 1. SUMMARISE NODE
 # -------------------------------
+
 def summarise_node(state):
     summaries = []
 
     for article in state["raw_articles"]:
         try:
-            cleaned_content = clean_content(article.get("content", ""))
+            title = article["title"]
+            content = article["content"]
 
-            # Skip useless content
-            if len(cleaned_content) < 50:
-                continue
+            # 🔁 Try max 2 attempts
+            for attempt in range(2):
 
-            summary = summarise_article(
-                article.get("title", ""),
-                cleaned_content
-            )
+                summary = summarise_article(title, content)
+
+                is_valid = verify_summary(content, summary)
+
+                if is_valid:
+                    print(f"✅ Verified (attempt {attempt+1})")
+                    break
+                else:
+                    print(f"✅ Verified (attempt {attempt+1})")
+                    print(f"⚠️ Hallucination detected. Retrying: {title}")
 
             summaries.append({
-                "title": article.get("title", "No title"),
-                "url": article.get("url", ""),
+                "title": title,
+                "url": article.get("url"),
                 "summary": summary,
-                "category": article.get("category", "Advancements")
+                "category": article.get("category"),
+                "score": article.get("score"),
+                "sentiment": article.get("sentiment")
             })
 
-            time.sleep(1)
-
         except Exception as e:
-            print(f"Error summarising: {article.get('title')}")
+            print(f"Error summarising: {article['title']}")
             continue
 
     return {
